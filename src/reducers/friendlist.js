@@ -5,6 +5,7 @@ import mapValues from 'lodash/object/mapValues';
 
 const initialState = {
   friends: [1, 2, 3],
+  marks: {},
   friendsById: {
     1: {
       id: 1,
@@ -17,6 +18,20 @@ const initialState = {
     3: {
       id: 3,
       name: 'George Washington'
+    }
+  },
+  marksById: {
+    1: {
+      id: 1,
+      name: 'Nissan'
+    },
+    2: {
+      id: 2,
+      name: 'Toyota'
+    },
+    3: {
+      id: 3,
+      name: 'Mitsubishi'
     }
   }
 };
@@ -35,6 +50,25 @@ export default function friends(state = initialState, action) {
             id: newId,
             name: action.name
           }
+        },
+      }
+
+
+    case types.ADD_MARK:      
+      return {
+        ...state,
+        marks: {
+          ...state.marks,
+          mark: action.name
+        },
+      }
+
+    case types.ADD_MODEL:      
+      return {
+        ...state,
+        marks: {
+          ...state.marks,
+          model: action.name
         },
       }
 

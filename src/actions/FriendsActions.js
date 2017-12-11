@@ -20,3 +20,17 @@ export function starFriend(id) {
     id
   };
 }
+
+export function addMark(name) {
+  return {
+    type: types.ADD_MARK,
+    name
+  };
+}
+
+export function addModel(name) {
+  return {
+    type: types.ADD_MODEL,
+    name
+  };
+}

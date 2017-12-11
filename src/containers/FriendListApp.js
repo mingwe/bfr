@@ -7,25 +7,32 @@ import * as FriendsActions from '../actions/FriendsActions';
 import { FriendList, AddFriendInput } from '../components';
 
 @connect(state => ({
-  friendlist: state.friendlist
+  friendlist: state.friendlist,
+  marklist: state.friendlist
 }))
-export default class FriendListApp extends Component {
+
+
+class FriendListApp extends Component {
 
   static propTypes = {
     friendsById: PropTypes.object.isRequired,
+    marks: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
   render () {
-    const { friendlist: { friendsById }, dispatch } = this.props;
-    const actions = bindActionCreators(FriendsActions, dispatch);
+    const { friendlist: { friendsById }, marklist: { marks }, dispatch } = this.props;
+    const actions = bindActionCreators(FriendsActions, dispatch);    
 
     return (
       <div className={styles.friendListApp}>
         <h1>The FriendList</h1>
-        <AddFriendInput addFriend={actions.addFriend} />
-        <FriendList friends={friendsById} actions={actions} />
+        <AddFriendInput addFriend={actions.addFriend} addMark={actions.addMark} addModel={actions.addModel}/>
+        <FriendList friends={friendsById} marklist={marks} actions={actions} />
+        <p>{marks}</p>
       </div>
     );
   }
 }
+
+export default FriendListApp;
