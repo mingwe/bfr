@@ -4,7 +4,7 @@ import assign from 'lodash/object/assign';
 import mapValues from 'lodash/object/mapValues';
 
 const initialState = {
-  marks: {mark: 'niss', model: 'laurel'},
+  marks: {},
   marksById: {
     1: {
       id: 1,

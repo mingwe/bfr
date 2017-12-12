@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import * as BrustActions from '../actions/BrustActions';
 import { BrustList, AddBrustInput } from '../components';
 
+import * as MYCONST from '../constants/ApiConst';
+
 @connect(state => ({
   marklist: state.brustlist
 }))
@@ -37,12 +39,27 @@ class BrustApp extends Component {
           }
       ];
 
+      var searchUrl;
+
+      if (marks && marks.mark && marks.model) {
+         searchUrl = MYCONST.HOST_URL + 'auto/search?api_key='+MYCONST.API_KEY+'&category_id=1&countpage=50&with_photo=1&marks='+marks.mark+'&models='+marks.model;
+      }
+      else {
+         searchUrl = false;
+      }
+
+
     return (
       <div className="supah-class">
-        <h1>The BRUST12</h1>
-        <AddBrustInput allMarks={allMarks} actions={actions}/>
-        <BrustList marklist={marks} actions={actions} />
-        <p>{marks}</p>
+        <h1>_</h1>
+        <AddBrustInput name="mark" allMarks={allMarks} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks?api_key='+MYCONST.API_KEY}/>
+
+        {marks.mark &&
+          <AddBrustInput name="model" testparam={marks.mark} allMarks={allMarks} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
+        }
+
+        <BrustList marklist={marks} actions={actions} url={searchUrl} />
+          {marks && <p>Selected: {marks.mark}</p>}
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 // import styles from './AddBrustInput.css';
-
+import $ from 'jquery';
 import * as MYCONST from '../constants/ApiConst';
 
 export default class AddBrustInput extends Component {
@@ -9,32 +9,70 @@ export default class AddBrustInput extends Component {
     addMark: PropTypes.func.isRequired
   }
 
+
+    componentDidMount() {
+      // if (this.state.updated != true) {
+          this.doRequest();
+      // }
+    };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.url != this.props.url) {
+            console.log('updated');
+            this.doRequest();
+        }
+        else {
+            console.log('not updtd');
+        }
+    };
+
+    doRequest() {
+        console.log('ajax start');
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data, updated: true});
+                console.log('ajax end (success)');
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('ajax end (not success)');
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
+
     changeCurrVal (e) {
 
-        const name = e.target.value.trim();
-        this.props.actions.addMark(name);
-        this.setState({ name: '' });
+        const name = e.target.value.split('/')[1];
+        if (this.props.name == 'mark') {
+            this.props.actions.addMark(name);
+        }
+        else if(this.props.name == 'model') {
+            this.props.actions.addModel(name);
+        }
+        this.setState({ markID: name });
     }
 
   render () {
-    var optionsTemplate = this.props.allMarks.map(function (item, index) {
-      return (
-          <option key={item.value}>{item.name}</option>
-      )
-    });
+    var optionsTemplate;
+    if (this.state.data) {
+        console.log('tthis');
+        optionsTemplate = this.state.data.map(function (item, index) {
+            return (
+                <option key={item.value}>{item.name}/{item.value}</option>
+            )
+        });
+    }
+    else {
+        optionsTemplate = <option>loading...</option>
+    }
     return (
       <div>
         <select onChange={this.changeCurrVal.bind(this)}>
             {optionsTemplate}
         </select>
-      <input
-        type="text"
-        autoFocus="true"
-        className="input-model"
-        placeholder="Type the model"
-        value={this.state.name}
-        onChange={this.handleChangeModel.bind(this)}
-        onKeyDown={this.handleSubmitModel.bind(this)} />
       </div>
     );
   }
@@ -45,19 +83,4 @@ export default class AddBrustInput extends Component {
       name: this.props.name || '',
     };
   }
-
-  handleChangeModel (e) {
-    this.setState({ name: e.target.value });
-  }
-
-  handleSubmitModel (e) {
-    const name = e.target.value.trim();
-    console.log(name);
-    console.log(MYCONST.API_KEY);
-    if (e.which === 13) {
-      this.props.addModel(name);
-      this.setState({ name: '' });
-    }
-  }
-
 }
