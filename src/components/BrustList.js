@@ -19,7 +19,7 @@ class BrustListItem extends Component {
                 </div>
                 <div>
                     <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.delAll('mark')}>
-                        del all1
+                        del all122
                     </button>
                 </div>
             </li>

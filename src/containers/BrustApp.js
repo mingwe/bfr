@@ -38,7 +38,7 @@ class BrustApp extends Component {
 
     return (
       <div className="supah-class">
-        <h1>The BRUST11</h1>
+        <h1>The BRUST</h1>
         <AddBrustInput allMarks="asd"/>
         <BrustList marklist={marks} actions={actions} />
         <p>{marks}</p>

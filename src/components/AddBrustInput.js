@@ -1,29 +1,46 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import styles from './AddBrustInput.css';
+// import styles from './AddBrustInput.css';
 
 import * as MYCONST from '../constants/ApiConst';
-console.log(MYCONST);
+
+var allMarks = [
+    {
+        value: '001',
+        name: 'Audi'
+    },
+    {
+        value: '002',
+        name: 'BMW'
+    },
+    {
+        value: '331',
+        name: 'Ford'
+    }
+];
 
 export default class AddBrustInput extends Component {
   static propTypes = {
     addMark: PropTypes.func.isRequired
   }
 
+    changeCurrVal (e) {
+        const name = e.target.value.trim();
+        this.props.addMark(name);
+        this.setState({ name: '' });
+    }
+
   render () {
+    var optionsTemplate = allMarks.map(function (item, index) {
+      return (
+          <option key={item.value}>{item.name}</option>
+      )
+    });
     return (
       <div>
-        <select>
-          <option></option>
+        <select onChange={this.changeCurrVal.bind(this)}>
+            {optionsTemplate}
         </select>
-      <input
-        type="text"
-        autoFocus="true"
-        className="input-mark"
-        placeholder="Type the mark"
-        value={this.state.name}
-        onChange={this.handleChangeMark.bind(this)}
-        onKeyDown={this.handleSubmitMark.bind(this)} />
       <input
         type="text"
         autoFocus="true"
@@ -41,20 +58,6 @@ export default class AddBrustInput extends Component {
     this.state = {
       name: this.props.name || '',
     };
-  }
-
-  handleChangeMark (e) {
-    this.setState({ name: e.target.value });
-  }
-
-  handleSubmitMark (e) {
-    const name = e.target.value.trim();
-    console.log(name);
-    console.log(e.which);
-    if (e.which === 13) {
-      this.props.addMark(name);
-      this.setState({ name: '' });
-    }
   }
 
   handleChangeModel (e) {
