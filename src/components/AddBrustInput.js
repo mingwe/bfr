@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import styles from './AddBrustInput.css';
 
+import * as MYCONST from '../constants/ApiConst';
+console.log(MYCONST);
+
 export default class AddBrustInput extends Component {
   static propTypes = {
     addMark: PropTypes.func.isRequired
@@ -10,6 +13,9 @@ export default class AddBrustInput extends Component {
   render () {
     return (
       <div>
+        <select>
+          <option></option>
+        </select>
       <input
         type="text"
         autoFocus="true"
@@ -27,7 +33,7 @@ export default class AddBrustInput extends Component {
         onChange={this.handleChangeModel.bind(this)}
         onKeyDown={this.handleSubmitModel.bind(this)} />
       </div>
-    );    
+    );
   }
 
   constructor (props, context) {
@@ -58,7 +64,7 @@ export default class AddBrustInput extends Component {
   handleSubmitModel (e) {
     const name = e.target.value.trim();
     console.log(name);
-    console.log(e.which);
+    console.log(MYCONST.API_KEY);
     if (e.which === 13) {
       this.props.addModel(name);
       this.setState({ name: '' });
