@@ -72,6 +72,12 @@ export default function friends(state = initialState, action) {
         },
       }
 
+    case types.DEL_ALL:
+       return {
+        ...state,
+          marks: ''
+       }
+
     case types.DELETE_FRIEND:
       return {
         ...state,

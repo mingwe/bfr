@@ -34,3 +34,10 @@ export function addModel(name) {
     name
   };
 }
+
+export function delAll(name) {
+    return {
+        type: types.DEL_ALL,
+        name
+    };
+}

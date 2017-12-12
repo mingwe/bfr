@@ -8,7 +8,8 @@ export default class FriendListItem extends Component {
     name: PropTypes.string.isRequired,
     starred: PropTypes.bool,
     starFriend: PropTypes.func.isRequired,
-    deleteFriend: PropTypes.func.isRequired
+    deleteFriend: PropTypes.func.isRequired,
+    delAll: PropTypes.func.isRequired
   }
 
   render () {
@@ -24,6 +25,9 @@ export default class FriendListItem extends Component {
           </button>
           <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.deleteFriend(this.props.id)}>
             <i className="fa fa-trash" />
+          </button>
+          <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.delAll('mark')}>
+            del all
           </button>
         </div>
       </li>
