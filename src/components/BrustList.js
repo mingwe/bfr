@@ -2,11 +2,35 @@ import React, { Component, PropTypes } from 'react';
 import mapValues from 'lodash/object/mapValues';
 
 import styles from './BrustList.css';
-import BrustListItem from './BrustListItem';
+
+
+class BrustListItem extends Component {
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        delAll: PropTypes.func.isRequired
+    }
+
+    render () {
+        return (
+            <li>
+                <div>
+                    <div><span>{this.props.name}</span></div>
+                </div>
+                <div>
+                    <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.delAll('mark')}>
+                        del all1
+                    </button>
+                </div>
+            </li>
+        );
+    }
+
+}
 
 export default class BrustList extends Component {
   static propTypes = {
-    marks: PropTypes.object.isRequired,
+    marklist: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
   }
 

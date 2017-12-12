@@ -14,7 +14,7 @@ import { BrustList, AddBrustInput } from '../components';
 class BrustApp extends Component {
 
   static propTypes = {
-    mark: PropTypes.object.isRequired,
+    marklist: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 

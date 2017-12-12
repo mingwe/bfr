@@ -4,7 +4,7 @@ import styles from './AddBrustInput.css';
 
 export default class AddBrustInput extends Component {
   static propTypes = {
-    addFriend: PropTypes.func.isRequired
+    addMark: PropTypes.func.isRequired
   }
 
   render () {
