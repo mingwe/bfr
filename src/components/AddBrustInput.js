@@ -4,34 +4,20 @@ import classnames from 'classnames';
 
 import * as MYCONST from '../constants/ApiConst';
 
-var allMarks = [
-    {
-        value: '001',
-        name: 'Audi'
-    },
-    {
-        value: '002',
-        name: 'BMW'
-    },
-    {
-        value: '331',
-        name: 'Ford'
-    }
-];
-
 export default class AddBrustInput extends Component {
   static propTypes = {
     addMark: PropTypes.func.isRequired
   }
 
     changeCurrVal (e) {
+
         const name = e.target.value.trim();
-        this.props.addMark(name);
+        this.props.actions.addMark(name);
         this.setState({ name: '' });
     }
 
   render () {
-    var optionsTemplate = allMarks.map(function (item, index) {
+    var optionsTemplate = this.props.allMarks.map(function (item, index) {
       return (
           <option key={item.value}>{item.name}</option>
       )

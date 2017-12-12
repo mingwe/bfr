@@ -10,22 +10,8 @@ import { BrustList, AddBrustInput } from '../components';
   marklist: state.brustlist
 }))
 
-var allMarks = {
-    0: {
-        value: '001',
-        name: 'Audi'
-    },
-    1: {
-        value: '002',
-        name: 'BMW'
-    },
-    2: {
-        value: '331',
-        name: 'Ford'
-    }
-};
-
 class BrustApp extends Component {
+
 
   static propTypes = {
     marklist: PropTypes.object.isRequired,
@@ -36,10 +22,25 @@ class BrustApp extends Component {
     const { marklist: { marks }, dispatch } = this.props;
     const actions = bindActionCreators(BrustActions, dispatch);
 
+      var allMarks = [
+          {
+              value: '001',
+              name: 'Audi'
+          },
+          {
+              value: '002',
+              name: 'BMW'
+          },
+          {
+              value: '331',
+              name: 'Ford'
+          }
+      ];
+
     return (
       <div className="supah-class">
-        <h1>The BRUST</h1>
-        <AddBrustInput allMarks="asd"/>
+        <h1>The BRUST12</h1>
+        <AddBrustInput allMarks={allMarks} actions={actions}/>
         <BrustList marklist={marks} actions={actions} />
         <p>{marks}</p>
       </div>
