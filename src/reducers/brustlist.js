@@ -4,21 +4,7 @@ import assign from 'lodash/object/assign';
 import mapValues from 'lodash/object/mapValues';
 
 const initialState = {
-  marks: {},
-  marksById: {
-    1: {
-      id: 1,
-      name: 'Nissan'
-    },
-    2: {
-      id: 2,
-      name: 'Toyota'
-    },
-    3: {
-      id: 3,
-      name: 'Mitsubishi'
-    }
-  }
+  marks: {}
 };
 
 export default function brust(state = initialState, action) {

@@ -1,3 +1,7 @@
+:local(.supah-class) {
+  max-width: 50px;
+  overflow: hidden;
+}
 :local(.friendList) {
   padding-left: 0;
   margin-bottom: 0;

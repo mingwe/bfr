@@ -24,21 +24,6 @@ class BrustApp extends Component {
     const { marklist: { marks }, dispatch } = this.props;
     const actions = bindActionCreators(BrustActions, dispatch);
 
-      var allMarks = [
-          {
-              value: '001',
-              name: 'Audi'
-          },
-          {
-              value: '002',
-              name: 'BMW'
-          },
-          {
-              value: '331',
-              name: 'Ford'
-          }
-      ];
-
       var searchUrl;
 
       if (marks && marks.mark && marks.model) {
@@ -52,10 +37,10 @@ class BrustApp extends Component {
     return (
       <div className="supah-class">
         <h1>_</h1>
-        <AddBrustInput name="mark" allMarks={allMarks} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks?api_key='+MYCONST.API_KEY}/>
+        <AddBrustInput name="mark" actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks?api_key='+MYCONST.API_KEY}/>
 
         {marks.mark &&
-          <AddBrustInput name="model" testparam={marks.mark} allMarks={allMarks} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
+          <AddBrustInput name="model" testparam={marks.mark} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
         }
 
         <BrustList marklist={marks} actions={actions} url={searchUrl} />

@@ -61,14 +61,16 @@ export default class BrustList extends Component {
         }
     }
 
-    // changePage(direction) {
-    //     if (direction) {
-    //         this.setState({page: this.state.page+1});
-    //     }
-    //     else {
-    //         this.setState({page: this.state.page-1});
-    //     }
-    // }
+    changePage(direction, e) {
+        if (direction) {
+            this.setState({page: this.state.page+1});
+        }
+        else {
+            if (this.state.page > 0) {
+                this.setState({page: this.state.page - 1});
+            }
+        }
+    }
 
     doRequest() {
         console.log('ajax start');
@@ -91,16 +93,17 @@ export default class BrustList extends Component {
 
   render () {
 
-      var searchResult = 'asd';
+      var searchResult = '';
       if (this.state && this.state.data && this.state.data.result) {
-          searchResult = this.state.data.result.search_result.ids;
+          searchResult = this.state.data.result.search_result.ids.map(function(item, index) {
+              return (
+                  <BrustListOneItem id={item}/>
+              )
+          });
       }
 
     return (
       <div className={styles.BrustList}>
-          {/*<button onClick={this.changePage.bind(this)}>next</button>*/}
-          {/*<button onClick={this.changePage.bind(this)}>prev</button>*/}
-          {this.state.page}
           {this.props.marklist.model && <span>model selected</span>}
          <BrustListItem
               key={this.props.marklist.mark}
@@ -108,9 +111,28 @@ export default class BrustList extends Component {
               name={this.props.marklist.model}
               {...this.props.actions}
          />
+          {searchResult &&
+              <div className={'pagination'}>
+                <div className={'pagination-current'}>
+                    {this.state.updated && this.state.page + 1}
+                </div>
+                <button onClick={this.changePage.bind(this, false)}>prev</button>
+                <button onClick={this.changePage.bind(this, true)}>next</button>
+              </div>
+          }
           {searchResult && <div className="true-result">{searchResult}</div>}
       </div>
     );
   }
 
+}
+
+class BrustListOneItem extends Component {
+    render() {
+        return (
+            <div className="brust-one">
+                {this.props.id}
+            </div>
+        )
+    }
 }
