@@ -106,25 +106,33 @@ export default class BrustList extends Component {
           });
       }
 
+      var single = this.props.single;
+
     return (
       <div className={styles.BrustList}>
-          {this.props.marklist.model && <span>model selected</span>}
-         <BrustListItem
-              key={this.props.marklist.mark}
-              id={this.props.marklist.mark}
-              name={this.props.marklist.model}
-              {...this.props.actions}
-         />
-          {searchResult &&
-              <div className={'pagination'}>
-                <div className={'pagination-current'}>
-                    {this.state.updated && this.state.page + 1}
-                </div>
-                <button onClick={this.changePage.bind(this, false)}>prev</button>
-                <button onClick={this.changePage.bind(this, true)}>next</button>
+          {single ? (
+              <BrustListSingle id={single} actions={this.props.actions}/>
+          ) : (
+              <div className="brustlist-list">
+                  {this.props.marklist.model && <span>model selected</span>}
+                      <BrustListItem
+                      key={this.props.marklist.mark}
+                      id={this.props.marklist.mark}
+                      name={this.props.marklist.model}
+                      {...this.props.actions}
+                      />
+                  {searchResult &&
+                      <div className={'pagination'}>
+                      <div className={'pagination-current'}>
+                      {this.state.updated && this.state.page + 1}
+                      </div>
+                      <button onClick={this.changePage.bind(this, false)}>prev</button>
+                      <button onClick={this.changePage.bind(this, true)}>next</button>
+                      </div>
+                  }
+                  {searchResult && <div className="true-result">{searchResult}</div>}
               </div>
-          }
-          {searchResult && <div className="true-result">{searchResult}</div>}
+          )}
       </div>
     );
   }
@@ -137,7 +145,8 @@ class BrustListOneItem extends Component {
         super(props, context);
 
         this.state = {
-            params: ''
+            params: '',
+            single: ''
         }
     };
 
@@ -156,16 +165,30 @@ class BrustListOneItem extends Component {
                     return false;
                 }
             });
+
+    };
+
+    // componentDidUpdate() {
+    //     onClick={() => this.setSingleID(false)};
+    // }
+    //
+    setSingleID(id) {
+        // this.props.actions.showSingle(this.props.id);
+        // alert(this.props.id);
+        // console.log('im clicked.');
+        console.log(id);
+        this.props.actions.showSingle(id);
     }
 
     render() {
 
         return (
-                <div className="brust-one">
+                <div className="brust-one" onClick={this.props.actions.showSingle.bind(this, this.props.id)}>
                     {this.state.params &&
                         <div className="brust-one-inner">
                             <p>{this.state.params.title}</p>
-                            <img src={this.state.params.photoData.seoLinkB}/>
+                            {/*<img src={this.state.params.photoData.seoLinkB}/>*/}
+                            [image]
                             <h3>{this.state.params.USD}</h3>
                             <h4>{this.state.params.autoData.fuelName}</h4>
                             <h4>{this.state.params.autoData.year}</h4>
@@ -173,6 +196,52 @@ class BrustListOneItem extends Component {
                         </div>
                     }
                 </div>
+        )
+    }
+}
+
+class BrustListSingle extends Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            params: '',
+            single: ''
+        }
+    };
+
+    componentDidMount() {
+
+        axios.get(MYCONST.HOST_URL+'auto/info?api_key='+MYCONST.API_KEY+'&auto_id='+this.props.id)
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({
+                        params: res.data
+                    });
+                }
+                else {
+                    console.log('fail');
+                    return false;
+                }
+            });
+
+    };
+    render() {
+        return (
+            <div className="brust-single">
+                    {this.state.params &&
+                    <div className="brust-one-inner">
+                        <p>{this.state.params.title}</p>
+                        <img src={this.state.params.photoData.seoLinkB}/>
+                        <h3>{this.state.params.USD}</h3>
+                        <h4>{this.state.params.autoData.fuelName}</h4>
+                        <h4>{this.state.params.autoData.year}</h4>
+                    </div>
+                    }
+                <div className="single-close" onClick={this.props.actions.closeSingle.bind(this)}>
+                    X
+                </div>
+            </div>
         )
     }
 }

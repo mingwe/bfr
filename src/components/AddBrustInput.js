@@ -55,20 +55,22 @@ export default class AddBrustInput extends Component {
 
   render () {
     var optionsTemplate;
+    var optionsLoading;
     if (this.state.data) {
-        console.log('tthis');
         optionsTemplate = this.state.data.map(function (item, index) {
             return (
                 <option key={item.value}>{item.name}/{item.value}</option>
             )
         });
+        optionsLoading = <option disabled selected>choose {this.props.name}...</option>;
     }
     else {
-        optionsTemplate = <option>loading...</option>
+        optionsLoading = <option>loading...</option>;
     }
     return (
       <div>
-        <select onChange={this.changeCurrVal.bind(this)}>
+        <select onChange={this.changeCurrVal.bind(this)} value="">
+            {optionsLoading}
             {optionsTemplate}
         </select>
       </div>

@@ -27,3 +27,24 @@ export function doRequest(name) {
         name
     };
 }
+
+export function showSingle(name) {
+    return {
+        type: types.SHOW_SINGLE,
+        name
+    };
+}
+
+export function closeSingle(name) {
+    return {
+        type: types.CLOSE_SINGLE,
+        name
+    };
+}
+
+export function setFilter(name) {
+    return {
+        type: types.SET_FILTER,
+        name
+    };
+}

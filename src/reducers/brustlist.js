@@ -7,7 +7,9 @@ import axios from 'axios';
 import * as MYCONST from '../constants/ApiConst';
 
 const initialState = {
-  marks: {}
+    marks: {},
+    single: '',
+    filter: ''
 };
 
 
@@ -67,6 +69,24 @@ export default function brust(state = initialState, action) {
         ...state,
           marks: ''
        }
+
+    case types.SHOW_SINGLE:
+       return {
+        ...state,
+          single: action.name
+       }
+
+    case types.CLOSE_SINGLE:
+       return {
+        ...state,
+          single: ''
+       }
+
+    case types.SET_FILTER:
+       return {
+        ...state,
+          filter: action.value
+          }
 
 
       case types.DO_REQUEST:
