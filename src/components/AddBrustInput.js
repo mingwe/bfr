@@ -27,18 +27,16 @@ export default class AddBrustInput extends Component {
     };
 
     doRequest() {
-        console.log('ajax start');
         $.ajax({
             url: this.props.url,
             dataType: 'json',
             cache: false,
             success: function(data) {
                 this.setState({data: data, updated: true});
-                console.log('ajax end (success)');
+
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log('ajax end (not success)');
-                console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
     }

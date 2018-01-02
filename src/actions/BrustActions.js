@@ -20,3 +20,10 @@ export function delAll(name) {
         name
     };
 }
+
+export function doRequest(name) {
+    return {
+        type: types.DO_REQUEST,
+        name
+    };
+}

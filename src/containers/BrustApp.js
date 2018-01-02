@@ -27,7 +27,7 @@ class BrustApp extends Component {
       var searchUrl;
 
       if (marks && marks.mark && marks.model) {
-         searchUrl = MYCONST.HOST_URL + 'auto/search?api_key='+MYCONST.API_KEY+'&category_id=1&countpage=50&with_photo=1&marks='+marks.mark+'&models='+marks.model;
+         searchUrl = MYCONST.HOST_URL + 'auto/search?api_key='+MYCONST.API_KEY+'&category_id=1&countpage=50&with_photo=1&marka_id[0]='+marks.mark+'&model_id[0]='+marks.model;
       }
       else {
          searchUrl = false;
