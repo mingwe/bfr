@@ -18,11 +18,11 @@ export default class AddBrustInput extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.url != this.props.url) {
-            console.log('updated');
+            // console.log('updated');
             this.doRequest();
         }
         else {
-            console.log('not updtd');
+            // console.log('not updtd');
         }
     };
 
@@ -41,7 +41,7 @@ export default class AddBrustInput extends Component {
         });
     }
 
-    changeCurrVal (e) {
+    splitId (e) {
 
         const name = e.target.value.split('/')[1];
         if (this.props.name == 'mark') {
@@ -56,6 +56,7 @@ export default class AddBrustInput extends Component {
   render () {
     var optionsTemplate;
     var optionsLoading;
+    var optionsAll;
     if (this.state.data) {
         optionsTemplate = this.state.data.map(function (item, index) {
             return (
@@ -63,14 +64,18 @@ export default class AddBrustInput extends Component {
             )
         });
         optionsLoading = <option disabled selected>choose {this.props.name}...</option>;
+        if (this.props.name == 'model') {
+            optionsAll = <option>All {this.props.name}'s/0</option>;
+        }
     }
     else {
         optionsLoading = <option>loading...</option>;
     }
     return (
       <div>
-        <select onChange={this.changeCurrVal.bind(this)} value="">
+        <select onChange={this.splitId.bind(this)} value="">
             {optionsLoading}
+            {optionsAll}
             {optionsTemplate}
         </select>
       </div>

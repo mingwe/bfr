@@ -42,9 +42,10 @@ export function closeSingle(name) {
     };
 }
 
-export function setFilter(name) {
+export function setFilter(name, value) {
     return {
         type: types.SET_FILTER,
-        name
+        name,
+        value
     };
 }

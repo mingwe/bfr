@@ -25,10 +25,29 @@ class BrustApp extends Component {
     const { marklist: { marks }, dispatch } = this.props;
     const actions = bindActionCreators(BrustActions, dispatch);
 
-      var searchUrl, options;
+      var searchUrl, options, filter;
+
+      if (Object.keys(this.props.marklist.filter).length) {
+          filter = this.props.marklist.filter;
+
+          filter = Object.keys(filter).map(function (item, index) {
+              return (
+                  '&'+item+'='+filter[item]
+              )
+          });
+          filter = filter.join('');
+          console.log(filter);
+      }
+      else {
+          console.log('filter unset');
+          console.log(this.props.marklist.filter.length);
+          filter = '';
+      }
 
       if (marks && marks.mark && marks.model) {
-         searchUrl = MYCONST.HOST_URL + 'auto/search?api_key='+MYCONST.API_KEY+'&category_id=1&countpage=50&with_photo=1&marka_id[0]='+marks.mark+'&model_id[0]='+marks.model;
+         searchUrl = MYCONST.HOST_URL + 'auto/search?api_key='+MYCONST.API_KEY+'&category_id=1&countpage=50&with_photo=1&marka_id[0]='+marks.mark+'&model_id[0]='+marks.model+filter;
+         console.log('searchurl');
+         console.log(searchUrl);
       }
       else {
          searchUrl = false;
@@ -43,7 +62,14 @@ class BrustApp extends Component {
           {marks.mark &&
             <AddBrustInput name="model" testparam={marks.mark} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
           }
-          <BrustFilter actions={actions}/>
+
+          <BrustFilter actions={actions} name="Order by" apiname="order_by" values="0;1;2" ftype="select" />
+          <BrustFilter actions={actions} name="Year from" apiname="s_yers" values="1950" ftype="text" />
+          <BrustFilter actions={actions} name="Year till" apiname="po_yers" values="2018" ftype="text" />
+
+          <BrustFilter actions={actions} name="engine" apiname="enfrom" values="1;2;3" ftype="select" />
+          <BrustFilter actions={actions} name="capacity" apiname="idk" values="2;4;5" ftype="radio" />
+
           <BrustList marklist={marks} actions={actions} url={searchUrl} single={this.props.marklist.single}/>
           {marks && <p>Selected: {marks.mark}</p>}
       </div>

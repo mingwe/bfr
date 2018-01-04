@@ -9,7 +9,7 @@ import * as MYCONST from '../constants/ApiConst';
 const initialState = {
     marks: {},
     single: '',
-    filter: ''
+    filter: {}
 };
 
 
@@ -85,8 +85,11 @@ export default function brust(state = initialState, action) {
     case types.SET_FILTER:
        return {
         ...state,
-          filter: action.value
-          }
+           filter: {
+               ...state.filter,
+               [action.name]: action.value
+            },
+       }
 
 
       case types.DO_REQUEST:

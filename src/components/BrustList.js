@@ -19,7 +19,7 @@ class BrustListItem extends Component {
                 <div>
                     <div><span>{this.props.name}</span></div>
                     <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.delAll('mark')}>
-                        del all122
+                        clear
                     </button>
                 </div>
         );
@@ -38,7 +38,7 @@ export default class BrustList extends Component {
         super(props, context);
 
         this.state = {
-            page: 0
+            page: 0,
         };
     };
 
@@ -55,10 +55,15 @@ export default class BrustList extends Component {
         console.log('comp updated');
         console.log('prevstate: '+ prevState.page);
         console.log('nowstate: '+ this.state.page);
+
+
+
         if (prevState.page != this.state.page) {
             this.doRequest();
+            console.log('page changed');
         }
         else {
+            console.log('page not changed');
             if ((prevProps.url != this.props.url && this.props.url != false) || (prevState.page != this.state.page)) {
                 this.doRequest();
             }
@@ -67,25 +72,33 @@ export default class BrustList extends Component {
 
     changePage(direction, e) {
         if (direction) {
-            this.setState({page: this.state.page+1});
+            if (this.state.page < ((this.state.data.result.search_result.count / 50).toFixed(0) - 1)) {
+                this.setState((prevState) => {
+                    return {page: prevState.page + 1};
+                });
+            }
         }
         else {
             if (this.state.page > 0) {
-                this.setState({page: this.state.page - 1});
+                this.setState((prevState) => {
+                    return {page: prevState.page - 1};
+                });
             }
         }
     }
 
     doRequest() {
+        console.log('updating...');
         $.ajax({
             url: this.props.url + '&page='+this.state.page,
             dataType: 'json',
             cache: false,
             success: function(data) {
                 this.setState({data: data, updated: true});
-                console.log('watch dis');
-                console.log(this.props.url);
-                console.log(data);
+                // console.log('watch dis');
+                // console.log(this.props.url);
+                // console.log(data);
+                // console.log('updatted succes!');
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log('ajax end (not success)');
@@ -150,9 +163,7 @@ class BrustListOneItem extends Component {
         }
     };
 
-    componentDidMount() {
-        // this.props.actions.doRequest(this.props.id);
-
+    getInfo() {
         axios.get(MYCONST.HOST_URL+'auto/info?api_key='+MYCONST.API_KEY+'&auto_id='+this.props.id)
             .then(res => {
                 if (res.status === 200) {
@@ -165,20 +176,18 @@ class BrustListOneItem extends Component {
                     return false;
                 }
             });
-
     };
 
-    // componentDidUpdate() {
-    //     onClick={() => this.setSingleID(false)};
-    // }
-    //
-    setSingleID(id) {
-        // this.props.actions.showSingle(this.props.id);
-        // alert(this.props.id);
-        // console.log('im clicked.');
-        console.log(id);
-        this.props.actions.showSingle(id);
-    }
+    componentDidMount() {
+        // this.props.actions.doRequest(this.props.id);
+        this.getInfo();
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.id != this.props.id) {
+            this.getInfo();
+        }
+    };
 
     render() {
 
@@ -190,8 +199,10 @@ class BrustListOneItem extends Component {
                             {/*<img src={this.state.params.photoData.seoLinkB}/>*/}
                             [image]
                             <h3>{this.state.params.USD}</h3>
+                            <h6>{this.state.params.UAH}</h6>
                             <h4>{this.state.params.autoData.fuelName}</h4>
                             <h4>{this.state.params.autoData.year}</h4>
+                            <h6>{this.state.params.addDate}</h6>
                             {/*{this.props.id}*/}
                         </div>
                     }
