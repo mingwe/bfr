@@ -11,34 +11,35 @@ export default class AddBrustInput extends Component {
 
 
     componentDidMount() {
-      // if (this.state.updated != true) {
-          this.doRequest();
-      // }
+      this.doRequest();
     };
 
     componentDidUpdate(prevProps) {
         if (prevProps.url != this.props.url) {
-            // console.log('updated');
             this.doRequest();
-        }
-        else {
-            // console.log('not updtd');
         }
     };
 
     doRequest() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data, updated: true});
-
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log('ajax end (not success)');
-            }.bind(this)
-        });
+        if (this.props.name == 'mark' && localStorage.getItem('marks')) {
+            this.setState({data: JSON.parse(localStorage.getItem('marks'))});
+            console.log('marks loaded from localStorage');
+        }
+        else {
+            $.ajax({
+                url: this.props.url,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    this.setState({data: data});
+                    localStorage.setItem('marks', JSON.stringify(data));
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.log('ajax end (not success)');
+                }.bind(this)
+            });
+            console.log('marks loaded from remote');
+        }
     }
 
     splitId (e) {
