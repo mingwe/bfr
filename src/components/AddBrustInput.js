@@ -23,7 +23,11 @@ export default class AddBrustInput extends Component {
     doRequest() {
         if (this.props.name == 'mark' && localStorage.getItem('marks')) {
             this.setState({data: JSON.parse(localStorage.getItem('marks'))});
-            console.log('marks loaded from localStorage');
+            console.log(this.props.name+'\'s loaded from localStorage');
+        }
+        else if (this.props.name == 'model' && localStorage.getItem(this.props.name+this.props.mark)) {
+            this.setState({data: JSON.parse(localStorage.getItem(this.props.name+this.props.mark))});
+            console.log(this.props.name+'\'s loaded from localStorage');
         }
         else {
             $.ajax({
@@ -32,13 +36,18 @@ export default class AddBrustInput extends Component {
                 cache: false,
                 success: function (data) {
                     this.setState({data: data});
-                    localStorage.setItem('marks', JSON.stringify(data));
+                    if (this.props.name == 'mark') {
+                        localStorage.setItem('marks', JSON.stringify(data));
+                    }
+                    else if (this.props.name == 'model') {
+                        localStorage.setItem(this.props.name+this.props.mark, JSON.stringify(data));
+                    }
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.log('ajax end (not success)');
                 }.bind(this)
             });
-            console.log('marks loaded from remote');
+            console.log(this.props.name+'\'s loaded from remote');
         }
     }
 

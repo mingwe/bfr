@@ -60,15 +60,17 @@ class BrustApp extends Component {
           <AddBrustInput name="mark" actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks?api_key='+MYCONST.API_KEY}/>
 
           {marks.mark &&
-            <AddBrustInput name="model" testparam={marks.mark} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
+            <AddBrustInput name="model" mark={marks.mark} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
           }
 
           <BrustFilter actions={actions} name="Order by" apiname="order_by" values="0;1;2" ftype="select" />
+          <BrustFilter actions={actions} name="Gearbox" apiname="gearbox[1]" values="0;1;2;3" ftype="select" />
+          <BrustFilter actions={actions} name="Drive wheel" apiname="drive_id" values="0;1;2;3" ftype="select" needrequest="driverTypes" needcat/>
           <BrustFilter actions={actions} name="Year from" apiname="s_yers" values="1950" ftype="text" />
           <BrustFilter actions={actions} name="Year till" apiname="po_yers" values="2018" ftype="text" />
 
-          <BrustFilter actions={actions} name="engine" apiname="enfrom" values="1;2;3" ftype="select" />
-          <BrustFilter actions={actions} name="capacity" apiname="idk" values="2;4;5" ftype="radio" />
+          <BrustFilter actions={actions} name="Fuel" apiname="type[0]" values="0;1;2;3" ftype="select" needrequest="type"/>
+          {/*<BrustFilter actions={actions} name="capacity" apiname="idk" values="2;4;5" ftype="radio" />*/}
 
           <BrustList marklist={marks} actions={actions} url={searchUrl} single={this.props.marklist.single}/>
           {marks && <p>Selected: {marks.mark}</p>}

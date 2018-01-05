@@ -202,6 +202,7 @@ class BrustListOneItem extends Component {
                             <h6>{this.state.params.UAH}</h6>
                             <h4>{this.state.params.autoData.fuelName}</h4>
                             <h4>{this.state.params.autoData.year}</h4>
+                            <h4>{this.state.params.autoData.gearboxName}</h4>
                             <h6>{this.state.params.addDate}</h6>
                             {/*{this.props.id}*/}
                         </div>
