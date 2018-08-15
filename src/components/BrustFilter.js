@@ -24,7 +24,7 @@ export default class BrustFilter extends Component {
         if (this.props.needcat) {
             cat = 'categories/1/';
         }
-        alert(storageKey);
+        // alert(storageKey);
         if (localStorage.getItem(storageKey)) {
             this.setState({fltr: JSON.parse(localStorage.getItem(storageKey))});
             console.log(this.props.name+'\'s loaded from localStorage');

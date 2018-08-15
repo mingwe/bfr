@@ -196,8 +196,8 @@ class BrustListOneItem extends Component {
                     {this.state.params &&
                         <div className="brust-one-inner">
                             <p>{this.state.params.title}</p>
-                            {/*<img src={this.state.params.photoData.seoLinkB}/>*/}
-                            [image]
+                            <img src={this.state.params.photoData.seoLinkB}/>
+                            {/*[image]*/}
                             <h3>{this.state.params.USD}</h3>
                             <h6>{this.state.params.UAH}</h6>
                             <h4>{this.state.params.autoData.fuelName}</h4>
