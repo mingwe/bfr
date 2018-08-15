@@ -65,12 +65,12 @@ class BrustApp extends Component {
               }
 
               <BrustFilter actions={actions} name="Order by" apiname="order_by" values="0;1;2" ftype="select" />
-              <BrustFilter actions={actions} name="Gearbox" apiname="gearbox[1]" values="0;1;2;3" ftype="select" />
-              <BrustFilter actions={actions} name="Drive wheel" apiname="drive_id" values="0;1;2;3" ftype="select" needrequest="driverTypes" needcat/>
+              <BrustFilter actions={actions} name="Gearbox" apiname="gearbox[1]" values="ANY/0;MT/1;AT/2;TT/3" ftype="select" />
+              <BrustFilter actions={actions} name="Drive wheel" apiname="drive_id" values="ANY/0;AWD/1;FWD/2;RWD/3" ftype="select" needrequest="driverTypes" needcat/>
               <BrustFilter actions={actions} name="Year from" apiname="s_yers" values="1950" ftype="text" />
               <BrustFilter actions={actions} name="Year till" apiname="po_yers" values="2018" ftype="text" />
 
-              <BrustFilter actions={actions} name="Fuel" apiname="type[0]" values="0;1;2;3" ftype="select" needrequest="type"/>
+              <BrustFilter actions={actions} name="Fuel" apiname="type[0]" values="0/0;1/1;2/2;3/3" ftype="select" needrequest="type"/>
               {/*<BrustFilter actions={actions} name="capacity" apiname="idk" values="2;4;5" ftype="radio" />*/}
           </div>
 

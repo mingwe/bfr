@@ -47,7 +47,7 @@ export default class BrustFilter extends Component {
     }
     
     applyFilter(that) {
-        this.props.actions.setFilter(this.props.apiname, that.target.value);
+        this.props.actions.setFilter(this.props.apiname, $(that.target).children('option:selected').attr('data-item-id'));
     }
     render() {
         var values, valuesTemplate, type, maxValue, name;
@@ -64,8 +64,9 @@ export default class BrustFilter extends Component {
 
         if (type == 'select') {
             valuesTemplate = values.map(function (item, index) {
+                item = item.split('/');
                 return (
-                    <option key={index}>{item}</option>
+                    <option key={index} data-item-id={item[1]}>{item[0]}</option>
                 )
             });
             valuesTemplate =

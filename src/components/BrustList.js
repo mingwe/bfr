@@ -230,6 +230,7 @@ class BrustListSingle extends Component {
                     this.setState({
                         params: res.data
                     });
+                    console.log(res.data);
                 }
                 else {
                     console.log('fail');
@@ -248,6 +249,7 @@ class BrustListSingle extends Component {
                         <h3>{this.state.params.USD}</h3>
                         <h4>{this.state.params.autoData.fuelName}</h4>
                         <h4>{this.state.params.autoData.year}</h4>
+                        <p>{this.state.params.autoData.description}</p>
                     </div>
                     }
                 <div className="single-close" onClick={this.props.actions.closeSingle.bind(this)}>
