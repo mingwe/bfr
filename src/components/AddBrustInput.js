@@ -52,8 +52,8 @@ export default class AddBrustInput extends Component {
     }
 
     splitId (e) {
-
-        const name = e.target.value.split('/')[1];
+        const name = $(e.target).children('option:selected').attr('data-item-id');
+        // const name = e.target.value.split('/')[1];
         if (this.props.name == 'mark') {
             this.props.actions.addMark(name);
         }
@@ -70,12 +70,12 @@ export default class AddBrustInput extends Component {
     if (this.state.data) {
         optionsTemplate = this.state.data.map(function (item, index) {
             return (
-                <option key={item.value}>{item.name}/{item.value}</option>
+                <option key={item.value} data-item-id={item.value}>{item.name}</option>
             )
         });
         optionsLoading = <option disabled selected>choose {this.props.name}...</option>;
         if (this.props.name == 'model') {
-            optionsAll = <option>All {this.props.name}'s/0</option>;
+            optionsAll = <option data-item-id="0">All {this.props.name}'s</option>;
         }
     }
     else {
@@ -83,7 +83,8 @@ export default class AddBrustInput extends Component {
     }
     return (
       <div>
-        <select onChange={this.splitId.bind(this)} value="">
+        <label>{this.props.name}</label>
+        <select onChange={this.splitId.bind(this)}>
             {optionsLoading}
             {optionsAll}
             {optionsTemplate}
