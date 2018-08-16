@@ -8,8 +8,9 @@
     /*color: #fff;*/
     margin: 0 auto;
 }
-.search-menu, .brustlist-list, .brust-single {
+.search-menu, .brustlist-list, .brust-single, body {
     background: #d8f4da;
+    background: #eee;
 }
 .search-menu select, .search-menu input {
     /*color: #000;*/

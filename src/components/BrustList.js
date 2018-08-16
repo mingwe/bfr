@@ -16,7 +16,6 @@ class BrustListItem extends Component {
     render () {
         return (
                 <div>
-                    {/*<div><span>{this.props.name}</span></div>*/}
                     <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.delAll('mark')}>
                         clear
                     </button>
@@ -46,8 +45,6 @@ export default class BrustList extends Component {
       if (this.props.url != false) {
           this.doRequest();
       }
-        console.log(this.props);
-      console.log('props upper');
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -94,10 +91,6 @@ export default class BrustList extends Component {
             cache: false,
             success: function(data) {
                 this.setState({data: data, updated: true});
-                // console.log('watch dis');
-                // console.log(this.props.url);
-                // console.log(data);
-                // console.log('updatted succes!');
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log('ajax end (not success)');
@@ -209,7 +202,6 @@ class BrustListOneItem extends Component {
                                 <div className="row">
                                     <img src={this.state.params.photoData.seoLinkB}/>
                                 </div>
-                                {/*[image]*/}
                                 <h3>{this.state.params.USD}</h3>
                                 <h6>{this.state.params.UAH}</h6>
                                 <h4>{this.state.params.autoData.fuelName}</h4>

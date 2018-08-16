@@ -19,12 +19,10 @@ export default class BrustFilter extends Component {
     requestFilter() {
         let storageKey = (this.props.apiname).split('[');
         storageKey = storageKey[0];
-        // let storageKey = this.props.apiname;
         let cat = '';
         if (this.props.needcat) {
             cat = 'categories/1/';
         }
-        // alert(storageKey);
         if (localStorage.getItem(storageKey)) {
             this.setState({fltr: JSON.parse(localStorage.getItem(storageKey))});
             console.log(this.props.name+'\'s loaded from localStorage');
@@ -65,6 +63,9 @@ export default class BrustFilter extends Component {
         if (type == 'select') {
             valuesTemplate = values.map(function (item, index) {
                 item = item.split('/');
+                if (typeof item[1] == "undefined") {
+                    item[1] = item[0];
+                }
                 return (
                     <option key={index} data-item-id={item[1]}>{item[0]}</option>
                 )
@@ -94,8 +95,6 @@ export default class BrustFilter extends Component {
 
         return (
             <div>
-            {/*<div onClick={this.props.actions.setFilter.bind(this, 'qwe', 'rty')}>*/}
-
                 <label>{name}</label>
 
                 {valuesTemplate}
