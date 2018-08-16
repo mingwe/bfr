@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import mapValues from 'lodash/object/mapValues';
 import $ from 'jquery';
-
 import styles from './BrustList.css';
 import * as MYCONST from "../constants/ApiConst";
 import axios from "axios/index";
@@ -17,7 +16,7 @@ class BrustListItem extends Component {
     render () {
         return (
                 <div>
-                    <div><span>{this.props.name}</span></div>
+                    {/*<div><span>{this.props.name}</span></div>*/}
                     <button className={`btn btn-default ${styles.btnAction}`} onClick={() => this.props.delAll('mark')}>
                         clear
                     </button>
@@ -126,8 +125,9 @@ export default class BrustList extends Component {
           {single ? (
               <BrustListSingle id={single} actions={this.props.actions}/>
           ) : (
-              <div className="brustlist-list">
-                  {this.props.marklist.model && <span>model selected</span>}
+              <div className="brustlist-list col">
+                  {/*{this.props.marklist.model && <span>model selected</span>}*/}
+                  {/*{this.props.marklist.model}*/}
                       <BrustListItem
                       key={this.props.marklist.mark}
                       id={this.props.marklist.mark}
@@ -143,7 +143,16 @@ export default class BrustList extends Component {
                       <button onClick={this.changePage.bind(this, true)}>next</button>
                       </div>
                   }
-                  {searchResult && <div className="true-result">{searchResult}</div>}
+                  {searchResult && <div className="true-result row">{searchResult}</div>}
+                  {searchResult &&
+                  <div className={'pagination'}>
+                      <div className={'pagination-current'}>
+                          {this.state.updated && this.state.page + 1}
+                      </div>
+                      <button onClick={this.changePage.bind(this, false)}>prev</button>
+                      <button onClick={this.changePage.bind(this, true)}>next</button>
+                  </div>
+                  }
               </div>
           )}
       </div>
@@ -192,19 +201,23 @@ class BrustListOneItem extends Component {
     render() {
 
         return (
-                <div className="brust-one" onClick={this.props.actions.showSingle.bind(this, this.props.id)}>
+                <div className="col-xs-12 col-md-6 col-lg-3 my-3 brust-one" onClick={this.props.actions.showSingle.bind(this, this.props.id)}>
                     {this.state.params &&
-                        <div className="brust-one-inner">
-                            <p>{this.state.params.title}</p>
-                            <img src={this.state.params.photoData.seoLinkB}/>
-                            {/*[image]*/}
-                            <h3>{this.state.params.USD}</h3>
-                            <h6>{this.state.params.UAH}</h6>
-                            <h4>{this.state.params.autoData.fuelName}</h4>
-                            <h4>{this.state.params.autoData.year}</h4>
-                            <h4>{this.state.params.autoData.gearboxName}</h4>
-                            <h6>{this.state.params.addDate}</h6>
-                            {/*{this.props.id}*/}
+                        <div className="brust-one-inner p-4">
+                            <div className="col">
+                                <p>{this.state.params.title}</p>
+                                <div className="row">
+                                    <img src={this.state.params.photoData.seoLinkB}/>
+                                </div>
+                                {/*[image]*/}
+                                <h3>{this.state.params.USD}</h3>
+                                <h6>{this.state.params.UAH}</h6>
+                                <h4>{this.state.params.autoData.fuelName}</h4>
+                                <h4>{this.state.params.autoData.year}</h4>
+                                <h4>{this.state.params.autoData.gearboxName}</h4>
+                                <h6>{this.state.params.addDate}</h6>
+                                {/*{this.props.id}*/}
+                            </div>
                         </div>
                     }
                 </div>
@@ -241,10 +254,10 @@ class BrustListSingle extends Component {
     };
     render() {
         return (
-            <div className="brust-single">
+            <div className="brust-single container py-3">
                     {this.state.params &&
-                    <div className="brust-one-inner">
-                        <p>{this.state.params.title}</p>
+                    <div className="brust-one-inner p-4">
+                        <h2>{this.state.params.title}</h2>
                         <img src={this.state.params.photoData.seoLinkB}/>
                         <h3>{this.state.params.USD}</h3>
                         <h4>{this.state.params.autoData.fuelName}</h4>

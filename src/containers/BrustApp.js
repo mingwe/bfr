@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './BrustApp.css';
+//import styles from './BrustApp.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -55,23 +55,30 @@ class BrustApp extends Component {
 
 
     return (
-      <div className="supah-class">
-          <div className="search-menu">
-              <h1>_</h1>
-              <AddBrustInput name="mark" actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks?api_key='+MYCONST.API_KEY}/>
+      <div className="supah-class container">
+          <h1 className="mt-4 mb-3">Find your rusty dream...</h1>
 
-              {marks.mark &&
-              <AddBrustInput name="model" mark={marks.mark} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
-              }
+          <div className="search-menu row">
+              <div className="col-xs-12 col-md-6">
+                  <AddBrustInput name="mark" actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks?api_key='+MYCONST.API_KEY}/>
 
-              <BrustFilter actions={actions} name="Order by" apiname="order_by" values="0;1;2" ftype="select" />
-              <BrustFilter actions={actions} name="Gearbox" apiname="gearbox[1]" values="ANY/0;MT/1;AT/2;TT/3" ftype="select" />
-              <BrustFilter actions={actions} name="Drive wheel" apiname="drive_id" values="ANY/0;AWD/1;FWD/2;RWD/3" ftype="select" needrequest="driverTypes" needcat/>
-              <BrustFilter actions={actions} name="Year from" apiname="s_yers" values="1950" ftype="text" />
-              <BrustFilter actions={actions} name="Year till" apiname="po_yers" values="2018" ftype="text" />
+                  {marks.mark &&
+                  <AddBrustInput name="model" mark={marks.mark} actions={actions} url={MYCONST.HOST_URL + 'auto/categories/1/marks/'+marks.mark+'/models?api_key='+MYCONST.API_KEY}/>
+                  }
 
-              <BrustFilter actions={actions} name="Fuel" apiname="type[0]" values="0/0;1/1;2/2;3/3" ftype="select" needrequest="type"/>
-              {/*<BrustFilter actions={actions} name="capacity" apiname="idk" values="2;4;5" ftype="radio" />*/}
+                  <BrustFilter actions={actions} name="Order by" apiname="order_by" values="0;1;2" ftype="select" />
+                  <BrustFilter actions={actions} name="Gearbox" apiname="gearbox[1]" values="ANY/0;MT/1;AT/2;TT/3" ftype="select" />
+              </div>
+              <div className="col-xs-12 col-md-6">
+                  <BrustFilter actions={actions} name="Drive wheel" apiname="drive_id" values="ANY/0;AWD/1;FWD/2;RWD/3" ftype="select" needrequest="driverTypes" needcat/>
+                  <BrustFilter actions={actions} name="Year from" apiname="s_yers" values="1950" ftype="text" />
+                  <BrustFilter actions={actions} name="Year till" apiname="po_yers" values="2018" ftype="text" />
+
+                  <BrustFilter actions={actions} name="Fuel" apiname="type[0]" values="ANY/0;Benzine/1;Diesel/2;BenzineGas/3" ftype="select" needrequest="type"/>
+                  {/*<BrustFilter actions={actions} name="capacity" apiname="idk" values="2;4;5" ftype="radio" />*/}
+              </div>
+
+
           </div>
 
 

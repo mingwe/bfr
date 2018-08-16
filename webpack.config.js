@@ -31,6 +31,10 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       { test: /\.css$/, loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader') }
+      //   {
+      //       test: /\.css$/,
+      //       loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+      //   }
     ]
   },
   resolve: {

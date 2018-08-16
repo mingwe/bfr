@@ -9,7 +9,9 @@ select, input {
   height: 36px;
   line-height: 36px;
 }
-
+:local(.search-menu) {
+  background: red;
+}
 :local(.brustApp) {
   width: 300px;
   padding-top: 18px;
